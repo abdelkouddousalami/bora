@@ -1,0 +1,38 @@
+.auth-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(45deg, var(--color-gold), var(--color-gold-light));
+    color: var(--color-black);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.auth-button i {
+    font-size: 1rem;
+}
+
+/* RTL Support */
+[dir="rtl"] .auth-button {
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .auth-button {
+        display: none;
+    }
+}

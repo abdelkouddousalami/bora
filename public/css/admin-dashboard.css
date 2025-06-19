@@ -1,0 +1,127 @@
+/* Pagination styling */
+.pagination {
+    margin: 0;
+    gap: 0.25rem;
+}
+
+.page-item .page-link {
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    color: #4e73df;
+    background-color: transparent;
+    border: 1px solid #e3e6f0;
+    transition: all 0.2s ease-in-out;
+}
+
+.page-item.active .page-link {
+    background-color: #4e73df;
+    border-color: #4e73df;
+    color: white;
+}
+
+.page-item .page-link:hover {
+    background-color: #eaecf4;
+    border-color: #e3e6f0;
+    color: #2e59d9;
+}
+
+/* Table styling */
+.table {
+    margin-bottom: 0;
+}
+
+.table > :not(caption) > * > * {
+    padding: 1rem;
+}
+
+.table > thead > tr > th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    border-bottom-width: 1px;
+    background-color: #f8f9fc;
+}
+
+/* Status select styling */
+.status-select {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    min-width: 120px;
+}
+
+.status-select[data-status="pending"] {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.status-select[data-status="confirmed"] {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.status-select[data-status="cancelled"] {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+/* Search box styling */
+.search-box {
+    position: relative;
+}
+
+.search-box .form-control {
+    padding-left: 2.5rem;
+    border-radius: 0.375rem;
+}
+
+.search-box::before {
+    content: "\f002";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #b7b9cc;
+    z-index: 1;
+}
+
+/* Card transitions */
+.card {
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Stats cards */
+.stats-card .icon-shape {
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover .icon-shape {
+    transform: scale(1.1);
+}
+
+/* Avatar styling */
+.avatar-initial {
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.avatar-initial:hover {
+    transform: scale(1.1);
+}
+
+/* Alert styling */
+.alert-dismissible {
+    padding-right: 3rem;
+}
+
+.alert {
+    border: none;
+    border-radius: 0.375rem;
+}
