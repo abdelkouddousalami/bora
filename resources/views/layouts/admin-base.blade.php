@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bora Fish - Admin</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
@@ -28,6 +32,19 @@
             color: #fff;
             overflow-x: hidden;
             display: flex;
+        }
+
+        /* Logo styles */
+        .admin-logo {
+            height: 50px;
+            width: auto;
+            margin: 10px 0;
+        }
+
+        .admin-logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
         }
 
         /* Sidebar */
@@ -97,9 +114,7 @@
             z-index: 1001;
             display: flex;
             align-items: center;
-        }
-
-        .header-content {
+        }        .header-content {
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -107,7 +122,20 @@
             padding: 0 20px 0 calc(var(--sidebar-width) + 20px);
         }
 
-        .logo h1 {
+        .admin-header-logo {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-header-logo img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .admin-header-logo h1 {
             background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 50%, var(--gold) 100%);
             background-clip: text;
             -webkit-background-clip: text;
@@ -263,9 +291,9 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
+    <header class="header">        <div class="header-content">
+            <div class="admin-header-logo">
+                <img src="{{ asset('images/logo/logo-bb-removebg.png') }}" alt="Bora Fish Logo">
                 <h1>Bora Fish Admin</h1>
             </div>
             <div class="user-menu">
