@@ -296,6 +296,35 @@
                 font-size: 2rem;
             }
         }
+
+        /* Updated registration link styles */
+        .register-link {
+            color: #ffd700 !important;
+            text-decoration: none !important;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .register-link:hover {
+            color: #ffed4e !important;
+            text-decoration: underline !important;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .register-section {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .register-section span {
+            color: #fff;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
@@ -342,8 +371,8 @@
         </form>
         
         <div class="decorative-line"></div>
-          <div class="form-options" style="justify-content: center;">
-            <span>Don't have an account? <a href="{{ route('register') }}" id="signUp">Create one</a></span>
+        <div class="form-options register-section" style="justify-content: center;">
+            <span>Don't have an account? <a href="{{ route('register') }}" class="register-link" id="registerLink">Create one</a></span>
         </div>
     </div>
 
