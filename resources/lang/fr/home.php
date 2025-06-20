@@ -65,51 +65,58 @@ return [
         'copyright' => '© 2025 Bora Fishing. Tous droits réservés.',
     ],
     'services' => [
-        'title' => 'Nos Tours',
-        'fishing_tours' => [
-            'title' => 'Sorties de pêche',
+        'title' => 'Nos Services',
+        'subtitle' => 'Découvrez nos services exceptionnels',
+        'categories' => [
+            'fishing' => 'Sorties de pêche',
+            'excursions' => 'Excursions & Activités'
+        ],
+        'fishing' => [
             'half_day' => [
                 'title' => 'Demi-journée de pêche',
-                'description' => 'Boissons à bord incluses',
-                'duration' => 'Durée : 4h',
-                'capacity' => '2 pax min / 6 pax max',
-                'price' => 'Prix : 270 € / personne'
+                'features' => [
+                    'drinks' => 'Boissons à bord',
+                    'capacity' => '2 pax min / 6 pax max',
+                    'duration' => 'Durée : 4h',
+                    'price' => '270 € / personne'
+                ]
             ],
             'family' => [
                 'title' => 'Pêche en famille',
-                'description' => 'Pêche, déjeuner, découverte du lagon',
-                'duration' => 'Durée : 5h',
-                'capacity' => '3 pax inclus / 6 pax max',
-                'price' => 'Prix : 930 €'
+                'features' => [
+                    'description' => 'Pêche, déjeuner, découverte du lagon',
+                    'capacity' => '3 pax inclus / 6 pax max',
+                    'duration' => 'Durée : 5h',
+                    'price' => '930 €'
+                ]
             ],
             'sport' => [
                 'title' => 'Pêche sportive',
                 'features' => [
-                    'Popping pour GT',
-                    'Jigging pour thon à dents de chien',
-                    'Pêche à la mouche à Tupai',
-                    'Pêche dans le lagon'
+                    'popping' => 'Popping pour GT',
+                    'jigging' => 'Jigging pour thon à dents de chien',
+                    'fly' => 'Pêche à la mouche à Tupai',
+                    'lagoon' => 'Pêche dans le lagon'
                 ]
             ]
         ],
         'excursions' => [
-            'title' => 'Excursions & Activités',
-            'private_tour' => [
+            'tropical' => [
                 'title' => 'Excursion tropicale privée',
                 'features' => [
-                    'Snorkeling',
-                    'Découverte du lagon de Bora Bora',
-                    'Aventure de plongée en apnée'
+                    'snorkeling' => 'Snorkeling',
+                    'discovery' => 'Découverte du lagon de Bora Bora',
+                    'diving' => 'Aventure de plongée en apnée'
                 ]
             ],
             'transfers' => [
                 'title' => 'Transferts privés entre les îles',
-                'description' => 'Taha\'a, Raiatea, Maupiti',
                 'features' => [
-                    'Pêche en route',
-                    'Max 4 invités'
+                    'islands' => 'Taha\'a, Raiatea, Maupiti',
+                    'fishing' => 'Pêche en route',
+                    'capacity' => 'Max 4 invités'
                 ]
             ]
         ]
-    ],
+    ]
 ];

@@ -1,0 +1,40 @@
+<?php
+
+return [
+    'manage_tours' => 'Manage Tours',
+    'tours_list' => 'Tours List',
+    'add_new' => 'Add New Tour',
+    'add_tour' => 'Add Tour',
+    'edit_tour' => 'Edit Tour',
+    'back_to_list' => 'Back to List',
+    'edit_details' => 'Edit Tour Details',
+    'tour_details' => 'Tour Details',
+    'name' => 'Name',
+    'category' => 'Category',
+    'categories' => [
+        'fishing' => 'Fishing Tour',
+        'excursion' => 'Excursion'
+    ],
+    'duration' => 'Duration',
+    'capacity' => 'Capacity',
+    'price' => 'Price',
+    'per_person' => 'Per Person',
+    'total' => 'Total Price',
+    'image' => 'Image',
+    'is_active' => 'Active',
+    'description' => 'Description',
+    'features' => 'Features',
+    'add_feature' => 'Add Feature',
+    'status' => 'Status',
+    'actions' => 'Actions',
+    'active' => 'Active',
+    'inactive' => 'Inactive',
+    'confirm_delete' => 'Are you sure you want to delete this tour?',
+    'no_tours' => 'No tours available yet.',
+    'add_first_tour' => 'Add First Tour',
+    'created_successfully' => 'Tour created successfully.',
+    'updated_successfully' => 'Tour updated successfully.',
+    'deleted_successfully' => 'Tour deleted successfully.',
+    'create_tour' => 'Create Tour',
+    'update_tour' => 'Update Tour'
+];

@@ -8,7 +8,12 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\FishingTourController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 
+// Public routes
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -45,9 +50,18 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
-    Route::get('/users', [DashboardController::class, 'getUsers'])->name('users');
     
+    // User management routes
+    Route::resource('users', UserController::class);
+    
+    // Service management routes
+    Route::resource('services', ServiceController::class);
+
+    // Fishing Tours management routes
+    Route::resource('tours', FishingTourController::class)->except(['show']);
+
     // Reservation management routes
-    Route::patch('/reservations/{reservation}/status', [DashboardController::class, 'updateReservationStatus'])->name('reservations.update-status');
-    Route::delete('/reservations/{reservation}', [DashboardController::class, 'deleteReservation'])->name('reservations.delete');
+    Route::resource('reservations', AdminReservationController::class);
+    Route::patch('/reservations/{reservation}/status', [AdminReservationController::class, 'updateStatus'])
+        ->name('reservations.update-status');
 });

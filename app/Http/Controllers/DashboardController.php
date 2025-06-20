@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Service;
 use App\Models\Reservation;
+use App\Models\FishingTour;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -31,66 +33,68 @@ class DashboardController extends Controller
         return view('dashboard.user', compact('reservations'));
     }    public function adminDashboard(): View
     {
-        // Get statistics
+        // Basic statistics
         $totalUsers = User::where('role', User::ROLE_USER)->count();
-        $totalMessages = 0; // You'll need to implement message functionality
-        $totalReservations = Reservation::count();        $monthlyRevenue = Reservation::where('status', 'confirmed')
+        $totalReservations = Reservation::count();
+        $totalTours = FishingTour::count();
+        $totalServices = Service::count();
+
+        // Revenue statistics
+        $monthlyRevenue = Reservation::where('status', 'confirmed')
             ->whereNotNull('price')
             ->whereMonth('created_at', now()->month)
             ->sum('price');
 
         $totalRevenue = Reservation::where('status', 'confirmed')
             ->whereNotNull('price')
-            ->sum('price');        // Get all users
-        $allUsers = User::where('role', User::ROLE_USER)
-            ->withCount('reservations')
+            ->sum('price');
+
+        // Recent activity (last 10 records)
+        $recentActivity = Reservation::with('user')
             ->latest()
-            ->get();
+            ->take(10)
+            ->get()
+            ->map(function ($reservation) {
+                return (object)[
+                    'created_at' => $reservation->created_at,
+                    'user' => $reservation->user,
+                    'description' => 'Made a reservation for ' . ($reservation->fishingTour->name ?? 'a tour'),
+                    'status' => $reservation->status,
+                    'status_color' => match($reservation->status) {
+                        'confirmed' => 'success',
+                        'pending' => 'warning',
+                        'cancelled' => 'danger',
+                        default => 'secondary'
+                    }
+                ];
+            });
 
-        // Get latest users for stats card
-        $latestUsers = $allUsers->take(5);
-
-        // Get all reservations with user info
-        $allReservations = Reservation::with('user')
-            ->latest()
-            ->get();
-
-        // Get latest reservations for stats card
-        $latestReservations = $allReservations->take(5);
-
-        // Get user growth data for chart
-        $userGrowth = User::where('role', User::ROLE_USER)
-            ->selectRaw('DATE_FORMAT(created_at, "%b") as month, COUNT(*) as count')
+        // Monthly reservations data for chart
+        $monthlyReservations = Reservation::selectRaw('DATE_FORMAT(created_at, "%b") as month, COUNT(*) as count')
             ->whereYear('created_at', now()->year)
             ->groupBy('month')
             ->orderBy('created_at')
             ->pluck('count', 'month')
-            ->toArray();        // Get reservation status data for chart
-        $reservationStats = Reservation::selectRaw('status, COUNT(*) as count')
-            ->groupBy('status')
-            ->pluck('count', 'status')
-            ->toArray();        $stats = [
-            'total' => Reservation::count(),
-            'total_users' => User::where('role', User::ROLE_USER)->count(),
-            'active' => Reservation::where('status', 'confirmed')
-                ->where('date', '>=', now())
-                ->count(),
-            'pending' => Reservation::where('status', 'pending')->count(),
-            'cancelled' => Reservation::where('status', 'cancelled')->count(),
-            'revenue' => $totalRevenue
-        ];
+            ->toArray();
+
+        // Popular tours data for chart
+        $popularTours = FishingTour::withCount('reservations')
+            ->orderByDesc('reservations_count')
+            ->take(5)
+            ->get()
+            ->pluck('reservations_count', 'name')
+            ->toArray();
 
         return view('dashboard.admin', compact(
             'totalUsers',
-            'totalMessages',
             'totalReservations',
+            'totalTours',
+            'totalServices',
             'monthlyRevenue',
-            'latestUsers',
-            'allUsers',
-            'latestReservations',
-            'allReservations',
-            'userGrowth',
-            'reservationStats'
+            'totalRevenue',
+            'recentActivity',
+            'monthlyReservations',
+            'popularTours'
         ));
     }    public function getUsers(): View
     {
@@ -102,20 +106,31 @@ class DashboardController extends Controller
         return view('dashboard.users', compact('users'));
     }
 
+    public function adminReservations(): View
+    {
+        $reservations = Reservation::with('user')
+            ->latest()
+            ->paginate(10);
+        
+        return view('dashboard.admin.reservations', compact('reservations'));
+    }
+
     public function updateReservationStatus(Request $request, Reservation $reservation): RedirectResponse
     {
         $validated = $request->validate([
-            'status' => 'required|in:pending,confirmed,cancelled'
+            'status' => ['required', 'string', 'in:pending,confirmed,cancelled']
         ]);
 
-        $reservation->update($validated);
+        $reservation->update([
+            'status' => $validated['status']
+        ]);
 
-        return back()->with('success', __('Reservation status updated successfully.'));
+        return back()->with('success', 'Reservation status updated successfully.');
     }
 
     public function deleteReservation(Reservation $reservation): RedirectResponse
     {
         $reservation->delete();
-        return back()->with('success', __('Reservation deleted successfully.'));
+        return back()->with('success', 'Reservation deleted successfully.');
     }
 }

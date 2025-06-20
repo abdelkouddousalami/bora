@@ -14,17 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminSeeder::class,
+            TestUsersSeeder::class,
+            ServiceSeeder::class,
         ]);
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'role' => User::ROLE_USER,
-        ]);
-
-        // Create some test users with reservations
-        User::factory(5)
-            ->hasReservations(3)
-            ->create(['role' => User::ROLE_USER]);
     }
 }
